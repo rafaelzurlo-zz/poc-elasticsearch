@@ -1,0 +1,45 @@
+# #######################
+# #### ELASTIC
+# #######################
+
+elasticsearch:
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.3.0
+  container_name: elasticsearch-poc
+  environment:
+    - node.name=elasticsearch
+    - discovery.seed_hosts=elasticsearch
+    - cluster.initial_master_nodes=elasticsearch
+    - cluster.name=docker-cluster
+    - bootstrap.memory_lock=true
+    - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  ulimits:
+    memlock:
+      soft: -1
+      hard: -1
+  volumes:
+    - 'esdata01:/usr/share/elasticsearch/data'
+  ports:
+    - 9200:9200
+  expose:
+    - "9200"
+  links:
+    - kibana
+
+#######################
+#### KIBANA
+#######################
+
+kibana:
+  image: docker.elastic.co/kibana/kibana:7.3.0
+  container_name: kibana-poc
+  hostname: kibana
+  environment:
+    - SERVER_NAME=kibana
+    - ELASTICSEARCH_URL=http://elasticsearch:9200
+    - ELASTICSEARCH_PORT=9200
+    - ELASTIC_PWD=changeme
+    - KIBANA_PWD=changeme
+  ports:
+    - 5601:5601
+  expose:
+    - "5601"
