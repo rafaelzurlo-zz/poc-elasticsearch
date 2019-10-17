@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c821b1ca-0173-4b2c-9756-8e2c8bb83acf",
+		"_postman_id": "e881dde7-10b5-487b-a64a-86be55f564f6",
 		"name": "ElasticSearch",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -299,7 +299,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9200/my_blogs/_search?q=category:Culture",
+					"raw": "http://localhost:9200/my_blogs/_search",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -308,12 +308,6 @@
 					"path": [
 						"my_blogs",
 						"_search"
-					],
-					"query": [
-						{
-							"key": "q",
-							"value": "category:Culture"
-						}
 					]
 				}
 			},
@@ -321,8 +315,11 @@
 		},
 		{
 			"name": "search dsl must",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "Content-Type",
@@ -761,6 +758,85 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "mult-match",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"query\": {\n    \"multi_match\" : {\n      \"query\":    \"Teste\", \n      \"fields\": [ \"category\", \"title\" ] \n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search aggs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"size\": 0,\n\t\"aggs\": {\n\t\t\"total_category\": {\n\t\t\t\"terms\": {\n\t\t\t\t\"field\": \"category.keyword\"\n\t\t\t},\n\t\t\t\"aggs\": {\n\t\t\t\t\"total_sales_category\": {\n\t\t\t\t\t\"sum\": {\n\t\t\t\t\t\t\"field\": \"taxful_total_price\"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/kibana_sample_data_ecommerce/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"kibana_sample_data_ecommerce",
+						"_search"
+					]
+				}
+			},
+			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
