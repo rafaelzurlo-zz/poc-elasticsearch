@@ -3,8 +3,8 @@
 # #######################
 
 elasticsearch:
-  image: docker.elastic.co/elasticsearch/elasticsearch:7.3.0
-  container_name: elasticsearch-poc
+  image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+  container_name: elasticsearch
   environment:
     - node.name=elasticsearch
     - discovery.seed_hosts=elasticsearch
@@ -17,21 +17,19 @@ elasticsearch:
       soft: -1
       hard: -1
   volumes:
-    - 'esdata01:/usr/share/elasticsearch/data'
+    - 'esdata02:/usr/share/elasticsearch/data'
   ports:
     - 9200:9200
   expose:
     - "9200"
-  links:
-    - kibana
 
 #######################
 #### KIBANA
 #######################
 
 kibana:
-  image: docker.elastic.co/kibana/kibana:7.3.0
-  container_name: kibana-poc
+  image: docker.elastic.co/kibana/kibana:7.4.0
+  container_name: kibana
   hostname: kibana
   environment:
     - SERVER_NAME=kibana
@@ -43,3 +41,5 @@ kibana:
     - 5601:5601
   expose:
     - "5601"
+  links:
+    - elasticsearch

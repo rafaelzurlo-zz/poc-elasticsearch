@@ -1,0 +1,766 @@
+{
+	"info": {
+		"_postman_id": "c821b1ca-0173-4b2c-9756-8e2c8bb83acf",
+		"name": "ElasticSearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create_update index document",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Solving the Small but\", \n\t\"category\": \"Culture\",\n\t\"date\": \"December 22, 2017\", \n\t\"author\": {\n\t\t\"first_name\": \"Daniel\", \n\t\t\"last_name\": \"Cecil\", \n\t\t\"company\": \"Elastic\"\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_doc/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create document",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\": \"Solving the Small but\", \n\t\"category\": \"Culture\",\n\t\"date\": \"December 22, 2017\", \n\t\"author\": {\n\t\t\"first_name\": \"Daniel\", \n\t\t\"last_name\": \"Cecil\", \n\t\t\"company\": \"Elastic\"\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_create/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_create",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update document",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"doc\":{\n\t\t\"category\": \"Security\"\n\t}\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_update/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_update",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete document",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_doc/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get document",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_doc/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_doc",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get mult document",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"docs\" : [ \n\t\t{\n\t\t\t\"_index\" : \"my_blogs\",\n\t\t\t\"_id\" : 1\n\t\t},\n\t\t{\n\t\t\t\"_index\" : \"my_blogs\",\n\t\t\t\"_id\" : 2\n\t\t} \n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_mget",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_mget"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bulk documents",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"index\" : { \"_index\" : \"test1\", \"_id\" : \"1\" } }\n{ \"field1\" : \"value1\" }\n{ \"delete\" : { \"_index\" : \"test1\", \"_id\" : \"2\" } }\n{ \"create\" : { \"_index\" : \"test1\", \"_id\" : \"3\" } }\n{ \"field1\" : \"value3\" }\n{ \"update\" : {\"_id\" : \"1\", \"_index\" : \"test1\"} }\n{ \"doc\" : {\"field2\" : \"value2\"} }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/_bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update by query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"script\": {\n  \t\"source\": \"ctx._source.category = 'Teste'\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_update_by_query?q=category:Culture",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_update_by_query"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "category:Culture"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"query\": { \n    \"term\": {\n      \"category\": \"Culture\"\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_search?q=category:Culture",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "category:Culture"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search dsl must",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": { \n\t    \"bool\": { \n\t      \"must\": [\n\t        { \"match\": { \"category\": \"Security\"}}\n\t      ]\n\t    }\n\t }\n }\n  ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update by query dsl",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": { \n\t    \"bool\": { \n\t      \"must\": [\n\t        { \"match\": { \"category\": \"Security\"}}\n\t      ]\n\t    }\n\t },\n\t  \"script\": {\n\t  \t\"source\": \"ctx._source.category = 'Teste'\"\n\t  }\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_update_by_query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_update_by_query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "edit mapping",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"properties\": {\n    \"email\": {\n      \"type\": \"keyword\"\n    }\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_mapping",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_mapping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create alias",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"actions\" : [\n        { \"add\" : { \"index\" : \"my_blogs\", \"alias\": \"my_page\" } }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/_aliases",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_aliases"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "settings index",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\" : {\n        \"refresh_interval\" : null\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_settings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reindex",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"source\": {\n    \"index\": \"my_blogs\"\n  },\n  \"dest\": {\n    \"index\": \"dest\"\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/_reindex",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_reindex"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": { \n\t\t\"bool\": {\n\t\t\t\"filter\": [\n\t\t\t\t{ \n\t\t\t\t\t\"match\": {\n\t\t\t\t\t\t\"category\": \"Teste\" \n\t\t\t\t\t\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t{ \n\t\t\t\t\t\"match\": {\n\t\t\t\t\t\t\"title\": \"Solving\" \n\t\t\t\t\t\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t}\t\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "query string",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9200/my_blogs/_search?q=category:Teste",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"my_blogs",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "category:Teste"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sql",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"\"\"\n\t\tSELECT * FROM my_blogs\n\t\tWHERE category='Teste'\n\t\t\"\"\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/_sql?format=txt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_sql"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "txt"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagination",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\": 0,\n\t\"size\": 10,\n\t\"query\": { \n\t\t\"bool\": {\n\t\t\t\"filter\":\n\t\t\t{ \n\t\t\t\t\"match\": {\n\t\t\t\t\t\"category\":\t\"Men's Clothing\"\n\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\t\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/kibana_sample_data_ecommerce/_search",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"kibana_sample_data_ecommerce",
+						"_search"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "scroll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"size\": 10,\n\t\"query\": { \n\t\t\"bool\": {\n\t\t\t\"filter\":\n\t\t\t{ \n\t\t\t\t\"match\": {\n\t\t\t\t\t\"category\":\t\"Men's Clothing\"\n\t\t\t\t\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\t\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/kibana_sample_data_ecommerce/_search?scroll=1m",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"kibana_sample_data_ecommerce",
+						"_search"
+					],
+					"query": [
+						{
+							"key": "scroll",
+							"value": "1m"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "scroll 2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"scroll_id\": \"DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAffoWUVZXc2Z1Z01RMmlkWnYxOVU2QXEzQQ==\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9200/_search/scroll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9200",
+					"path": [
+						"_search",
+						"scroll"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
